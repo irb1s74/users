@@ -1,0 +1,10 @@
+@import "reset.css";
+@import "global.css";
+
+.app {
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  background: #eaeaea;
+  font-family: var(--font-family-text);
+}
