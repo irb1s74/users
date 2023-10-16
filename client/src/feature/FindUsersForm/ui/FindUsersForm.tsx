@@ -33,23 +33,21 @@ export const FindUsersForm = memo(() => {
             number: '',
         },
         validationSchema: formSchema,
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             abortController.abort();
             const newAbortController = new AbortController();
             setAbortController(newAbortController);
             const number = values.number.split("-").join("");
-
             setIsLoading(true)
-            axios.get(`http://localhost:5000/users/find/${values.email}/${number}`, {
+            const res: AxiosResponse<IUser[]> = await axios.get(`http://localhost:5000/users/find/${values.email}/${number}`, {
                 signal: newAbortController.signal,
             })
-                .then((res: AxiosResponse<IUser[]>) => {
-                    setData(res.data)
-                    setIsLoading(false)
-                })
-                .catch(() => setIsLoading(false))
+            setData(res.data)
+            setIsLoading(false)
         }
     })
+
+    console.log(formik.isSubmitting)
 
     return (
         <Stack alignItems='center' justifyContent='center' spacing={4} sx={{height: "100vh"}}>
@@ -98,7 +96,7 @@ export const FindUsersForm = memo(() => {
                 <Box sx={{display: 'flex'}}>
                     <CircularProgress/>
                 </Box>
-            ) : data.length ? (
+            ) : (
                 <Stack>
                     {data.map((user) => (
                         <Card key={user.email}>
@@ -108,8 +106,6 @@ export const FindUsersForm = memo(() => {
                         </Card>
                     ))}
                 </Stack>
-            ) : (
-                <Typography>Ничего не найдено</Typography>
             )}
         </Stack>
     )

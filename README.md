@@ -5,4 +5,4 @@
 - [api](api/README.md)
 
 
-![Alt-текст](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif "Орк")
+![Alt-текст](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif "Cat")
